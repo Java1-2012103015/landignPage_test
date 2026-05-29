@@ -1,1 +1,407 @@
+<!DOCTYPE html>
 
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AETERNA | Precision Engineering</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#1b1b1b",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "on-secondary-fixed": "#1b1c1b",
+                        "secondary-fixed-dim": "#c7c6c4",
+                        "on-tertiary": "#313030",
+                        "on-tertiary-container": "#454544",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-primary-fixed": "#241a00",
+                        "tertiary-container": "#b4b2b2",
+                        "surface-variant": "#353535",
+                        "background": "#131313",
+                        "inverse-surface": "#e2e2e2",
+                        "inverse-on-surface": "#303030",
+                        "secondary-container": "#464746",
+                        "on-surface-variant": "#d0c5af",
+                        "outline-variant": "#4d4635",
+                        "on-secondary-container": "#b5b5b3",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "inverse-primary": "#735c00",
+                        "surface-container": "#1f1f1f",
+                        "on-primary": "#3c2f00",
+                        "error": "#ffb4ab",
+                        "tertiary": "#d0cdcd",
+                        "surface-dim": "#131313",
+                        "secondary-fixed": "#e3e2e0",
+                        "surface-tint": "#e9c349",
+                        "outline": "#99907c",
+                        "on-surface": "#e2e2e2",
+                        "primary-container": "#d4af37",
+                        "on-primary-container": "#554300",
+                        "on-error-container": "#ffdad6",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "tertiary-fixed": "#e5e2e1",
+                        "surface": "#131313",
+                        "primary-fixed-dim": "#e9c349",
+                        "surface-container-highest": "#353535",
+                        "primary-fixed": "#ffe088",
+                        "on-secondary": "#303130",
+                        "on-primary-fixed-variant": "#574500",
+                        "secondary": "#c7c6c4",
+                        "on-secondary-fixed-variant": "#464746",
+                        "on-background": "#e2e2e2",
+                        "surface-bright": "#393939",
+                        "primary": "#f2ca50"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "section-padding-mobile": "64px",
+                        "unit": "8px",
+                        "margin-edge": "40px",
+                        "section-padding-desktop": "120px",
+                        "max-width": "1440px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "headline-md": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "300"}],
+                        "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .metallic-sheen {
+            background: linear-gradient(135deg, #f2ca50 0%, #ffe088 50%, #d4af37 100%);
+        }
+        .glass-nav {
+            backdrop-filter: blur(30px);
+            background: rgba(19, 19, 19, 0.7);
+        }
+        .phone-container {
+            perspective: 2000px;
+        }
+        .phone-model {
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out;
+        }
+        .drag-indicator {
+            animation: pulse 2s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+        }
+        section {
+            padding-top: var(--section-padding-desktop);
+            padding-bottom: var(--section-padding-desktop);
+        }
+        @media (max-width: 768px) {
+            section {
+                padding-top: var(--section-padding-mobile);
+                padding-bottom: var(--section-padding-mobile);
+            }
+        }
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.1s linear;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 border-b border-outline-variant/30 bg-background/80 backdrop-blur-xl">
+<nav class="flex justify-between items-center w-full px-6 md:px-10 py-6 max-w-[1440px] mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+<a class="font-display-lg text-headline-md tracking-[0.2em] text-primary" href="#">AETERNA</a>
+</div>
+<div class="hidden md:flex gap-10">
+<a class="font-body-md text-primary font-medium transition-colors duration-500 hover:text-primary" href="#">COLLECTION</a>
+<a class="font-body-md text-on-surface-variant transition-colors duration-500 hover:text-primary" href="#">CRAFTSMANSHIP</a>
+<a class="font-body-md text-on-surface-variant transition-colors duration-500 hover:text-primary" href="#">STORES</a>
+</div>
+<button class="material-symbols-outlined text-primary" data-icon="shopping_bag">shopping_bag</button>
+</nav>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="min-h-screen flex flex-col justify-center items-center text-center px-6 relative overflow-hidden" id="hero">
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px]"></div>
+</div>
+<div class="z-10 mt-20 w-full max-w-4xl">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 tracking-tight">
+                AETERNA: <span class="italic font-light">The Art of Precision</span>
+</h1>
+<p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto mb-12">
+                Where timeless luxury meets cutting-edge technology. Experience the zenith of mobile engineering.
+            </p>
+<div class="phone-container relative w-full max-w-[320px] md:max-w-[400px] mx-auto aspect-[9/19] cursor-grab active:cursor-grabbing select-none" id="hero-phone-trigger">
+<!-- Progress Circle Overlay -->
+<div class="absolute inset-0 z-20 pointer-events-none flex items-center justify-center opacity-0 transition-opacity duration-300" id="progress-container">
+<svg class="w-full h-full p-4" viewbox="0 0 100 100">
+<circle class="text-white/5" cx="50" cy="50" fill="transparent" r="45" stroke="currentColor" stroke-width="0.5"></circle>
+<circle class="progress-ring-circle text-primary" cx="50" cy="50" fill="transparent" id="progress-ring" r="45" stroke="currentColor" stroke-dasharray="283" stroke-dashoffset="283" stroke-width="1"></circle>
+</svg>
+</div>
+<div class="phone-model w-full h-full relative" id="phone-3d">
+<img alt="Aeterna Smartphone" class="w-full h-full object-contain drop-shadow-[0_35px_60px_rgba(0,0,0,0.8)] pointer-events-none" data-alt="A highly detailed 3D render of a luxury smartphone with a brushed titanium unibody and a gold-accented bezel. The phone is positioned vertically, reflecting soft, dramatic top-lighting that highlights its sleek curves and precision-engineered chamfered edges against a deep black, minimalist studio background. The overall aesthetic is one of stealth wealth, featuring a refined metallic sheen and a pristine, infinite glass display that glows subtly at the edges." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdpBX9FA3EnOSl_JENaer7IE2MCzlRugyOt_S_P2SUaOM1iMyQj2DLGyH3lQ9UgvR4YQmQwxVREyxfxF8qZxDQY7Q6-u6QIe6sV9J8WsNFsGm1qUD98JxLGq4pIiRvHFMd0KlB7sTUrlpqNJca_nnWD-MxTIKIUbZkzj6sIHrPTosAr6YQLYCPhR-ECLyDDf3axnRdjBp9Jb56CtQrhzGamivkDDyvLNo9LejH-dLf0-ECZC9-d0mpZipNjqR6M8Q1mjFVQ3GvUo8"/>
+</div>
+<div class="absolute -bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 drag-indicator" id="instruction-indicator">
+<span class="material-symbols-outlined text-primary" data-icon="swipe">swipe</span>
+<span class="font-label-sm text-label-sm tracking-[0.2em] uppercase">360° Swipe Experience</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Experience (Bento Style) -->
+<section class="bg-surface-container-lowest" id="tactile-mastery">
+<div class="max-w-[1440px] mx-auto px-6 md:px-10">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-8 bg-surface-container rounded-xl p-12 flex flex-col justify-between border border-outline-variant/20 overflow-hidden relative group">
+<div class="z-10">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-4">Tactile Mastery</h2>
+<p class="font-body-md text-on-surface-variant max-w-md">Every curve is calculated. Every surface is polished by hand. Drag to witness the convergence of light and metal.</p>
+</div>
+<div class="mt-12 h-[400px] flex justify-center items-center">
+<!-- Interaction Canvas -->
+<div class="relative w-64 h-full flex items-center justify-center">
+<img class="h-full object-contain" data-alt="A close-up sequence of a luxury smartphone rotating on its vertical axis, showcasing a seamless titanium unibody and gold-plated side buttons. The lighting is low-key and moody, creating sharp highlights on the metallic surfaces and deep, velvety shadows. The style is ultra-modern and cinematic, emphasizing the precision-milled details of the camera housing and the thinness of the device against a dark charcoal background." id="rotation-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs8Y4X8wqZ1OnXwCTnNvPHabzebk1-g-BEOJb5G6mV29giJkJ05Vl_DBwOaEij3QYhnrg7uCjOs8Ywu56Toah8gB1Z4OtMtp9xTu50h2mF6Bp3xD6LahlHJncMFuJSnYs2KyrD7s6u_owsumvxXuRq7jqfo2Sj_fPUyxuZVan2b_Cp325fWJdQldRjWPc8zcW_MnJJ2b5pyBC9bukIeNJ5nV_AiSx7Jbh85ZHNvUnttmoYFv6RL8rPFvvpFw6XJIJAKH4l89gGuPQ"/>
+</div>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<div class="flex-1 bg-primary text-on-primary rounded-xl p-8 border border-primary/20 flex flex-col justify-end">
+<span class="material-symbols-outlined text-4xl mb-4" data-icon="architecture">architecture</span>
+<h3 class="font-headline-md mb-2">0.01mm Precision</h3>
+<p class="font-body-md opacity-80">Milled from a single block of aerospace-grade titanium for unparalleled structural integrity.</p>
+</div>
+<div class="flex-1 bg-surface-container rounded-xl p-8 border border-outline-variant/20 flex flex-col justify-end">
+<span class="material-symbols-outlined text-4xl mb-4 text-primary" data-icon="auto_awesome">auto_awesome</span>
+<h3 class="font-headline-md mb-2">Gold Accents</h3>
+<p class="font-body-md text-on-surface-variant">24-karat vapor-deposited gold detailing on all physical interfaces.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features -->
+<section class="max-w-[1440px] mx-auto px-6 md:px-10">
+<div class="text-center mb-20">
+<span class="font-label-sm text-primary tracking-[0.3em] uppercase mb-4 block">The Specification</span>
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg">Mastery in Every Detail.</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<!-- Feature 1 -->
+<div class="flex flex-col items-center text-center group">
+<div class="w-full aspect-square mb-8 overflow-hidden rounded-xl bg-surface-container-low border border-outline-variant/10">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A macro photograph focusing on the textured surface of a titanium smartphone frame, showing the microscopic brushed metal pattern. The lighting is cold and clinical, highlighting the strength and industrial beauty of the material. In the background, a soft gold glow hints at luxury, creating a contrast between rugged durability and refined elegance in a dark-themed, premium product shot." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0Wi9b6nM7bxHB8DLDMwLs5EdAzUm0Bug9GAgTYWxL8Pigx3LEDuWCI5hktJhxC8lg0kV16zYFDxyvN1BwRyK9V99JddG9vbnS9OKQ94X9rJVVIRCwW9aLmV2QQSISQOlMFh1TdRE6LhgKM0FYRprffzlNG5Utrh-f9wtIIogMQbW6AWBiI2iEy8NYRYbcqiuf4ZAKahv_NcZRu1teoXqJuVgttXmCVWb4vwUVcGcIYxbRlm-aQXpSF9PvBkAkj94DoOnxztII7Q0"/>
+</div>
+<h3 class="font-headline-md mb-4">Titanium Unibody</h3>
+<p class="font-body-md text-on-surface-variant">Strength redefined. A structural masterpiece that weighs 30% less than steel while offering twice the durability.</p>
+</div>
+<!-- Feature 2 -->
+<div class="flex flex-col items-center text-center group">
+<div class="w-full aspect-square mb-8 overflow-hidden rounded-xl bg-surface-container-low border border-outline-variant/10">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="An extreme close-up of a triple-lens smartphone camera system with gold-rimmed lenses. The glass of the lenses reflects a sophisticated studio light setup, showing multi-layered coatings and internal optical elements. The surrounding surface is a matte black titanium, emphasizing a professional and high-end aesthetic that feels like a piece of high-precision watchmaking." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz1FjPS8zl205s-H4j-p6KRTzZVfoR54FqFYE80MO-MQpdgV_JjTUdOy8_1FlJaB05l5vR65rPrarzIneodM2WpcC-cVhYq5NDUHqpdaeAllMNBZgZc5nA-hGOIuPx6MRV-iyLptSdCsIpnr0Xih73n5nF7ACt-eSRqGDDAFQJa92tL9OHLFy4X4G5w9PJz0PD3TtceAuOoBe_T1OkIw0OpkUm0A2ebJzw1GTqlJyNPc1vcjGQLh0ZCRUGAurIvAQWp5puY_GPqEY"/>
+</div>
+<h3 class="font-headline-md mb-4">Sovereign Camera System</h3>
+<p class="font-body-md text-on-surface-variant">Capture the soul of every moment with our proprietary opto-mechanical sensor array.</p>
+</div>
+<!-- Feature 3 -->
+<div class="flex flex-col items-center text-center group">
+<div class="w-full aspect-square mb-8 overflow-hidden rounded-xl bg-surface-container-low border border-outline-variant/10">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A side-profile view of a smartphone displaying a vibrant, high-contrast abstract wallpaper of flowing gold and silk. The edge of the screen is curved, showing the seamless transition from glass to metal. The display is incredibly bright and sharp, illuminating the dark surrounding environment with a premium, warm glow that highlights the device's ultra-thin bezel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5GYHvIoJiqICR7yvzkZIE0FcP19qMWGGkKMsJv_4RuobFtVCGHsUOogwxw7Uq_Ud3LfG-Qx9WrVVlI-8nAvIF4ZADc3kkrl7IKPtkDQTaEp3Ydm6aFRTjN1v4pEwpL9a3chCkYbkYxino_afiAsb2DG372DlSiEu4waDb-4X8EnDl_m7mCpzcW-Aos1j6eHMW1hXwv4lF8Lnup62pXPKZS_o6LI2TDxKY9bLp7jqhf1vA0s3wdwu41KhTXyEJcr9a0KkZKdg98o4"/>
+</div>
+<h3 class="font-headline-md mb-4">Infinite Display</h3>
+<p class="font-body-md text-on-surface-variant">A window to another world. Our LTPO Gen-5 panel offers perfect blacks and 3000 nits of brilliance.</p>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="relative py-32 overflow-hidden">
+<div class="absolute inset-0 bg-surface-container-low/50 -z-10"></div>
+<div class="max-w-[1440px] mx-auto px-6 text-center">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-display-lg mb-8 italic">Own the Future of Precision.</h2>
+<div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+<button class="metallic-sheen text-on-primary-fixed px-12 py-5 rounded-full font-label-sm tracking-widest uppercase hover:opacity-90 transition-all duration-300 transform hover:-translate-y-1">
+                    Pre-order Now
+                </button>
+<button class="border border-primary text-primary px-12 py-5 rounded-full font-label-sm tracking-widest uppercase hover:bg-primary/10 transition-all duration-300">
+                    Inquire Privately
+                </button>
+</div>
+<p class="mt-8 font-body-md text-on-surface-variant/60">Limited production run. Delivery commences Autumn 2024.</p>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-20 px-6 md:px-10 border-t border-outline-variant/20 bg-background">
+<div class="flex flex-col md:flex-row justify-between items-center gap-12 w-full max-w-[1440px] mx-auto">
+<div class="flex flex-col items-center md:items-start gap-4">
+<a class="font-display-lg text-headline-md text-primary tracking-[0.2em]" href="#">AETERNA</a>
+<p class="font-body-md text-label-sm text-on-tertiary-fixed-variant tracking-widest uppercase">
+                © 2024 AETERNA PRECISION. ALL RIGHTS RESERVED.
+            </p>
+</div>
+<div class="flex flex-wrap justify-center gap-8 md:gap-12">
+<a class="font-body-md text-label-sm tracking-widest text-on-tertiary-fixed-variant hover:text-primary transition-opacity duration-300" href="#">CRAFTSMANSHIP</a>
+<a class="font-body-md text-label-sm tracking-widest text-on-tertiary-fixed-variant hover:text-primary transition-opacity duration-300" href="#">TECHNOLOGY</a>
+<a class="font-body-md text-label-sm tracking-widest text-on-tertiary-fixed-variant hover:text-primary transition-opacity duration-300" href="#">SUPPORT</a>
+<a class="font-body-md text-label-sm tracking-widest text-on-tertiary-fixed-variant hover:text-primary transition-opacity duration-300" href="#">PRIVACY</a>
+</div>
+<div class="flex gap-6">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors" data-icon="language">language</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors" data-icon="location_on">location_on</span>
+</div>
+</div>
+</footer>
+<script>
+    // 360 Degree Rotation Logic
+    const phoneModel = document.getElementById('phone-3d');
+    const trigger = document.getElementById('hero-phone-trigger');
+    const progressRing = document.getElementById('progress-ring');
+    const progressContainer = document.getElementById('progress-container');
+    const indicator = document.getElementById('instruction-indicator');
+    
+    let isDragging = false;
+    let startX;
+    let currentRotation = 0;
+    let targetRotation = 360;
+    let rotationComplete = false;
+
+    const radius = progressRing.r.baseVal.value;
+    const circumference = radius * 2 * Math.PI;
+    progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
+
+    function updateProgress(degrees) {
+        const absoluteDegrees = Math.abs(degrees);
+        const progress = Math.min(absoluteDegrees / targetRotation, 1);
+        const offset = circumference - (progress * circumference);
+        progressRing.style.strokeDashoffset = offset;
+        
+        if (progress >= 1 && !rotationComplete) {
+            rotationComplete = true;
+            onComplete();
+        }
+    }
+
+    function onComplete() {
+        // High-end smooth transition to next section
+        progressRing.classList.add('transition-all', 'duration-500');
+        progressRing.style.strokeWidth = "4";
+        
+        setTimeout(() => {
+            document.getElementById('tactile-mastery').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }, 300);
+    }
+
+    function startInteraction(x) {
+        if (rotationComplete) return;
+        isDragging = true;
+        startX = x - currentRotation;
+        progressContainer.style.opacity = '1';
+        indicator.style.opacity = '0';
+    }
+
+    function moveInteraction(x) {
+        if (!isDragging || rotationComplete) return;
+        const delta = x - startX;
+        currentRotation = delta;
+        
+        // Multi-axis rotation feel
+        phoneModel.style.transform = `rotateY(${currentRotation}deg) rotateX(${currentRotation * 0.1}deg)`;
+        updateProgress(currentRotation);
+    }
+
+    function endInteraction() {
+        isDragging = false;
+        if (!rotationComplete) {
+            progressContainer.style.opacity = '0';
+            indicator.style.opacity = '1';
+        }
+    }
+
+    // Event Listeners
+    trigger.addEventListener('mousedown', (e) => startInteraction(e.pageX));
+    window.addEventListener('mousemove', (e) => moveInteraction(e.pageX));
+    window.addEventListener('mouseup', endInteraction);
+
+    trigger.addEventListener('touchstart', (e) => startInteraction(e.touches[0].pageX), { passive: true });
+    window.addEventListener('touchmove', (e) => moveInteraction(e.touches[0].pageX), { passive: false });
+    window.addEventListener('touchend', endInteraction);
+
+    // Existing Secondary Interaction Simulation (Bento Section)
+    const rotImg = document.getElementById('rotation-img');
+    const rotContainer = rotImg.parentElement;
+    
+    rotContainer.addEventListener('mousemove', (e) => {
+        const rect = rotContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const percent = x / rect.width;
+        const scale = 1 + (Math.abs(percent - 0.5) * 0.1);
+        const brightness = 1 + (percent - 0.5);
+        rotImg.style.transform = `scale(${scale}) translateX(${(percent - 0.5) * 20}px)`;
+        rotImg.style.filter = `brightness(${brightness})`;
+    });
+
+    rotContainer.addEventListener('mouseleave', () => {
+        rotImg.style.transform = 'scale(1) translateX(0)';
+        rotImg.style.filter = 'brightness(1)';
+    });
+
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('opacity-100');
+                entry.target.classList.remove('opacity-0', 'translate-y-10');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section > div').forEach(el => {
+        el.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+        observer.observe(el);
+    });
+</script>
+</body></html>
